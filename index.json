@@ -1,4 +1,39 @@
 {
   "format": 1,
-  "plugins": []
+  "plugins": [
+    {
+      "name": "SmartProps",
+      "displayName": "Smart Props",
+      "author": "Figglebottom",
+      "version": "1.0.7",
+      "description": "Author and place Modular Smart Props with linked segments, decorations and variations. Includes a duct definition with first-launch installation confirmation.",
+      "changes": "Includes the duct Smart Prop; first-launch installation preserves existing definitions. Updated Modular controls and segment menus.",
+      "url": "https://github.com/twurtleowo/mtplugins-smartprops",
+      "apps": ["radiant"],
+      "apiVersion": 1,
+      "files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/twurtleowo/mtplugins-smartprops/releases/download/v1.0.7/README.md",
+          "sha256": "07dedf575733a9f99b84decfc63918801742cfdaf35a569142c813f4c6c3dffe"
+        },
+        {
+          "path": "SmartProps.dll",
+          "url": "https://github.com/twurtleowo/mtplugins-smartprops/releases/download/v1.0.7/SmartProps.dll",
+          "sha256": "b1a80e52b4d4d3091b9e627cbb48eb2ce40896cebbc47759dcaf4651f97b93e2"
+        },
+        {
+          "path": "SmartProps.ini",
+          "url": "https://github.com/twurtleowo/mtplugins-smartprops/releases/download/v1.0.7/SmartProps.ini",
+          "sha256": "76c6748fd64b9bf0654c73164fbb649b5ca9f2a11a46aaf542a94fd2ea732f6e",
+          "config": true
+        },
+        {
+          "path": "bundled/p7_duct_metal_rectangle.map",
+          "url": "https://github.com/twurtleowo/mtplugins-smartprops/releases/download/v1.0.7/p7_duct_metal_rectangle.map",
+          "sha256": "657cd6b6d5c0852995b34751fd939b6e3c401e431d9a6d2a1f6952d3d9ed931d"
+        }
+      ]
+    }
+  ]
 }
