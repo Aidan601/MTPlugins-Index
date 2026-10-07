@@ -1,0 +1,23 @@
+name: Check the plugin list
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - if: github.event_name == 'pull_request'
+        run: |
+          git show "origin/${{ github.base_ref }}:index.json" > "$RUNNER_TEMP/base.json"
+          python tools/check_index.py --base "$RUNNER_TEMP/base.json"
+      - if: github.event_name != 'pull_request'
+        run: python tools/check_index.py
