@@ -34,6 +34,42 @@
           "sha256": "657cd6b6d5c0852995b34751fd939b6e3c401e431d9a6d2a1f6952d3d9ed931d"
         }
       ]
+    },
+    {
+      "name": "PhysX",
+      "displayName": "PhysX Placement",
+      "author": "SaintVertigo",
+      "version": "1.0.0",
+      "description": "Drop selected models, brushes and patches with NVIDIA PhysX so they fall and settle on the map, and drape patches as cloth. Each placement is one undo step.",
+      "changes": "First release.",
+      "apps": ["radiant"],
+      "apiVersion": 1,
+      "files": [
+        {
+          "path": "PHYSX_LICENSE.txt",
+          "sha256": "a0f09a69ed4e8fed2c52b6794d21b0d3e43a43244665adff28f29c6ed294fcaf"
+        },
+        {
+          "path": "PhysX.dll",
+          "sha256": "adddb82ee3b55c5e28989509fde89d1f4936c3ff4bcbb211328cf274ac7459a3"
+        },
+        {
+          "path": "PhysX3Common_x64.dll",
+          "sha256": "4e121a20f7747ba42d2ee19c4418f3413d5e8bcc3064bec71d472bba5205c143"
+        },
+        {
+          "path": "PhysX3Cooking_x64.dll",
+          "sha256": "424e3fdef28f48fb6c1f1270949af83c00ca2a1baf2fc43f4d33db52cca2cf82"
+        },
+        {
+          "path": "PhysX3_x64.dll",
+          "sha256": "d28bef35130c55554baa13182c0f94379c88e62fdaee3fa24a9df59bf89f4ea4"
+        },
+        {
+          "path": "PxFoundation_x64.dll",
+          "sha256": "8fb647a15db72b762ada2fd52e505dd88ad0e9f8b91e1af30d9b32cfbccd4038"
+        }
+      ]
     }
   ]
 }
