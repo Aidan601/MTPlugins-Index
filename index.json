@@ -39,9 +39,9 @@
       "name": "PhysX",
       "displayName": "PhysX Placement",
       "author": "SaintVertigo",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Drop selected models, brushes and patches with NVIDIA PhysX so they fall and settle on the map, and drape patches as cloth. Each placement is one undo step.",
-      "changes": "First release.",
+      "changes": "Brushes and patches inside prefabs now collide, so dropped objects no longer fall through prefab floors.",
       "apps": ["radiant"],
       "apiVersion": 1,
       "files": [
@@ -51,7 +51,7 @@
         },
         {
           "path": "PhysX.dll",
-          "sha256": "adddb82ee3b55c5e28989509fde89d1f4936c3ff4bcbb211328cf274ac7459a3"
+          "sha256": "598ec38ffb90bafc77bad7e966373c7492ebed446b03d464983f4b30d2ec70e0"
         },
         {
           "path": "PhysX3Common_x64.dll",
