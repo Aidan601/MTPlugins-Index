@@ -139,6 +139,33 @@
           "sha256": "261a78245fcb4f5db3ab08946a22ab223e4f36011598492c3c0d0bb0e268fa94"
         }
       ]
+    },
+    {
+      "name": "VisualEditor",
+      "displayName": "Visual Editor",
+      "author": "SaintVertigo",
+      "version": "1.0.1",
+      "description": "Edit BO3 Bloom and Color LVI grades, author LUT textures, and edit Vision Sets in Radiant.",
+      "changes": "Rename to VisualEditor, migrate settings safely, modernize LUT folder selection. Real camera LUT preview requires a host update.",
+      "apps": [
+        "radiant"
+      ],
+      "apiVersion": 1,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "781b1f75d935e585f1bb55e962f6a7c9e6999082dec5994cbc5a6713f72f537c"
+        },
+        {
+          "path": "VisualEditor.dll",
+          "sha256": "39663eba6010278799e550627202aa6d73a3cd2659d46592d14d581dbed7f422"
+        },
+        {
+          "path": "VisualEditor.ini",
+          "sha256": "7caebc5cc8660c29197fb0f74fd128b46a9f65f21e30de863fb7112125c899f7",
+          "config": true
+        }
+      ]
     }
   ]
 }
