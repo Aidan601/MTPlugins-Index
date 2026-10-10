@@ -126,9 +126,9 @@
       "name": "SplineProps",
       "displayName": "Spline Props",
       "author": "Sharksguy",
-      "version": "2.7.0",
+      "version": "2.7.1",
       "description": "Place props and prefabs in Radiant using splines",
-      "changes": "Initial release.",
+      "changes": "Updated Author.",
       "apps": [
         "radiant"
       ],
@@ -136,7 +136,7 @@
       "files": [
         {
           "path": "SplineProps.dll",
-          "sha256": "f06f508a5d51cd5da776e4282d874ef8f11020d430ad528f04c4f0875e9bea8b"
+          "sha256": "261a78245fcb4f5db3ab08946a22ab223e4f36011598492c3c0d0bb0e268fa94"
         }
       ]
     }
