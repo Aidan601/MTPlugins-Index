@@ -96,32 +96,32 @@
       ]
     },
     {
-      "name": "VisionEditor",
-      "displayName": "Visual Editor",
-      "author": "SaintVertigo",
-      "version": "1.0.0",
-      "description": "Edit BO3 Bloom and Color LVI grades, create and preview LUTs, and edit Vision Sets in Radiant.",
-      "changes": "Initial public release: live LVI and LUT grading, BO3 LUT export, and Vision Set editing.",
-      "apps": [
-        "radiant"
-      ],
-      "apiVersion": 1,
-      "files": [
-        {
-          "path": "README.md",
-          "sha256": "242aebb934d9acdd7f5987899998da659c405c5390e1925fd0b896c327db73e8"
-        },
-        {
-          "path": "VisionEditor.dll",
-          "sha256": "87a96f185ae935363965fccbd5528e43efda3e2cf98f43e28f9e06a5d82cd399"
-        },
-        {
-          "path": "VisionEditor.ini",
-          "sha256": "d7d8e9cf4dead24de7673915b84cef163d40f9b0697c9b5b0a7c73bbad174861",
-          "config": true
-        }
-      ]
-    },
+        "name": "VisionEditor",
+        "displayName": "Visual Editor",
+        "author": "SaintVertigo",
+        "version": "1.0.1",
+        "description": "Edit BO3 Bloom and Color LVI grades, author and export LUTs, and edit Vision Sets in Radiant. Real camera LUT preview requires the upcoming MTPlugins host update.",
+        "changes": "v1.0.1 fixes and UI improvements. Keeps the VisionEditor install ID for in-place upgrades; live LUT camera preview requires the upcoming host update.",
+        "apps": [
+          "radiant"
+        ],
+        "apiVersion": 1,
+        "files": [
+          {
+            "path": "README.md",
+            "sha256": "1e20d50a742430d25a1bf22fae4c9eb95ed302578e6b92004e6f1b932dd91524"
+          },
+          {
+            "path": "VisionEditor.dll",
+            "sha256": "b7df87a2817640f63b5293cb8bff7e8dbfdee51c1a51d1d54263c5b2977a5221"
+          },
+          {
+            "path": "VisionEditor.ini",
+            "sha256": "f48166258386dcafa40beae4eac019650e79d3079396bbebf673da0eb9630cfb",
+            "config": true
+          }
+        ]
+      },
     {
       "name": "SplineProps",
       "displayName": "Spline Props",
