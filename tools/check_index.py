@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check index.json format, file hashes (downloads unless --offline, files in plugins/ always) and, with --base, that changed files raise the version.
+"""Check index.json format, file hashes (downloads unless --offline, files in plugins/ always) and, with --base, that changed files raise the version, and that plugins/ holds only the listed versions.
 Usage: python tools/check_index.py [--offline] [--base <file>]"""
 import hashlib, json, os, re, sys, urllib.request
 
@@ -86,10 +86,16 @@ def main():
             except Exception as ex:
                 errors.append(f"{where}: {p}: download failed ({ex})")
     if os.path.isdir("plugins"):
-        listed = {e.get("name", "") for e in idx["plugins"]}
+        listed = {e.get("name", ""): e for e in idx["plugins"]}
         for d in sorted(os.listdir("plugins")):
             if d not in listed:
-                errors.append(f"plugins/{d}: no entry named '{d}' in index.json")
+                errors.append(f"plugins/{d}: no entry named '{d}' in index.json"); continue
+            # only the listed version is ever downloaded, older folders must go
+            e = listed[d]
+            keep = {e.get("version")} if any(not f.get("url") for f in e.get("files", [])) else set()
+            for sub in sorted(os.listdir(os.path.join("plugins", d))):
+                if sub not in keep:
+                    errors.append(f"plugins/{d}/{sub}: not the listed version ({e.get('version')}), delete it")
     for err in errors:
         print("ERROR", err)
     print(f"{len(idx['plugins'])} plugin(s), {len(errors)} error(s)")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Print an index.json entry for a plugin folder with every file's SHA-256 (*.ini marked config).
 Usage: python tools/make_entry.py <plugin folder> <release download base URL>
-       python tools/make_entry.py <plugin folder> --version <version>   (copies the files into plugins/<name>/<version>/, no urls)"""
+       python tools/make_entry.py <plugin folder> --version <version>   (copies the files into plugins/<name>/<version>/, removes older versions, no urls)"""
 import hashlib, json, os, shutil, sys
 
 def main():
@@ -41,6 +41,11 @@ def main():
             os.makedirs(os.path.dirname(out), exist_ok=True)
             shutil.copyfile(full, out)
         print(f"copied {len(files)} file(s) to {os.path.relpath(dest, repo)}", file=sys.stderr)
+        parent = os.path.dirname(dest)
+        for sub in sorted(os.listdir(parent)):
+            if sub != version:
+                shutil.rmtree(os.path.join(parent, sub))
+                print(f"removed the old version {os.path.relpath(os.path.join(parent, sub), repo)}", file=sys.stderr)
     print(json.dumps({"name": name, "displayName": "", "author": "", "version": version, "description": "", "url": "",
                       "apps": ["radiant"], "apiVersion": 1, "files": [e for _, e in files]}, indent=2))
 
