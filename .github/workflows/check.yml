@@ -8,10 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      pending: ${{ steps.pending.outputs.names }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -21,3 +24,33 @@ jobs:
           python tools/check_index.py --base "$RUNNER_TEMP/base.json"
       - if: github.event_name != 'pull_request'
         run: python tools/check_index.py
+      - id: pending
+        run: echo "names=$(python tools/check_index.py --pending)" >> "$GITHUB_OUTPUT"
+
+  # Plugins in sources/ are built here so the reviewer sees they build and gets the link to the code to read.
+  # Nothing built on a pull request is ever published.
+  build:
+    needs: check
+    if: github.event_name == 'pull_request' && needs.check.outputs.pending != '[]'
+    runs-on: windows-2025-vs2026
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        name: ${{ fromJSON(needs.check.outputs.pending) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - env:
+          PLUGIN: ${{ matrix.name }}
+        run: python tools/build_source.py "$env:PLUGIN" "$env:RUNNER_TEMP\out" --work "$env:RUNNER_TEMP\work"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr-build-${{ matrix.name }}
+          path: ${{ runner.temp }}\out
+          retention-days: 7

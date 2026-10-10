@@ -2,67 +2,66 @@
 
 # MTPlugins plugin list
 
-This repo holds `index.json`, the list that the **Browse plugins** view of the MTPlugins Plugins window (Ctrl+Shift+P in Radiant or APE) shows. Anyone can add their plugin with a pull request. Every entry is reviewed before it is merged.
+This is the list of plugins people can install from **Browse plugins** in the MTPlugins Plugins window (Ctrl+Shift+P in Radiant or APE). Anyone can add their plugin.
 
-MTPlugins' own plugins are not listed: they come with the MTPlugins installer, which also brings their updates.
+The list builds every plugin itself from its source code, after the code has been read. So the DLL people install is always made from code that was checked.
 
-Browse downloads each file of a plugin over HTTPS, checks it against the SHA-256 listed here, and only then puts it in `<game>\bin\plugins\<Name>\` and loads it. A file that does not match its hash is never installed.
+## Before you start
 
-## Add your plugin
+- Your plugin is made with the MTPlugins SDK, and its DLL is named after the plugin (`MyTool.dll` for a plugin called `MyTool`).
+- Its code is in a GitHub repo, public or private, with the SDK headers inside it.
+- It builds in Visual Studio 2026 (Release, x64) or with CMake.
+- You have [Python](https://www.python.org/downloads/) and [Git](https://git-scm.com/) installed.
 
-1. Build your plugin with the MTPlugins SDK. The DLL must be named after the plugin (`MyTool.dll` for `"name": "MyTool"`).
-2. Put the files where Browse can download them. Pick one:
-   - **In this repo** (no hosting of your own, no source needed): the files go into `plugins/<Name>/<version>/` in your pull request. The script below copies them there.
-   - **On your own GitHub release**: upload every file of your plugin folder as a release asset (`MyTool.dll`, optionally `MyTool.ini` and other files). Asset names are flat, so files in subfolders need unique names too.
-3. Generate the entry, with the hashes, from your plugin folder:
+## Submit your plugin
+
+1. **Push** the version you want to release to your plugin's GitHub repo.
+2. **Fork** this repo on GitHub and clone your fork.
+3. **Run** this from the clone, pointing it at your plugin's folder:
 
    ```
-   python tools/make_entry.py <your plugin folder> --version 1.0
-   python tools/make_entry.py <your plugin folder> https://github.com/<you>/<repo>/releases/download/<tag>
+   python tools/submit.py C:\path\to\MyTool
    ```
 
-   The first form copies the files into `plugins/MyTool/1.0/` and leaves out the file `url`s. The second points each file at your release.
-4. Fill in the fields it leaves empty (`url` may stay empty or be removed), add the entry to the `plugins` array in `index.json`, and open a pull request. The check on the pull request compares every file with its hash (it downloads the ones with a `url`).
+   It asks a few questions (name, description, which editors it runs in) and writes one file, `sources/MyTool.json`. Add `--test-build` to build it on your PC first and catch errors early.
+4. **Open a pull request** with that one file. The script prints the commands.
 
-To publish a new version, open a pull request that raises `version` and updates the hashes: with files in this repo, run the script again with the new version (it adds the new `plugins/<Name>/<version>/` folder and removes the old one: only the listed version is kept, the check fails on any other folder); with a release, make a new release (never replace files in a release that is already listed) and update the URLs too. `changes` can say in one line what is new. Users then see "Update available" in the Plugins window, and the Mod Tools Launcher asks them at its next start whether to update (Update all / Skip / Later).
+That's all. Once your pull request is reviewed and merged, the list builds your plugin and it shows up in Browse plugins.
 
-The version must go up whenever the files change: the editors compare it with the version your DLL reports (`api.version`), and a changed file without a newer version is shown as "Modified", never offered as an update. Bump `api.version` in the plugin too, to the same number.
+### If your repo is private
 
-## Entry format
+Run it with `--private` instead (first time only: `python -m pip install pynacl`):
 
-```json
-{
-  "name": "MyTool",
-  "displayName": "My Tool",
-  "author": "you",
-  "version": "1.0",
-  "description": "One or two sentences.",
-  "changes": "What is new in this version, one line.",
-  "url": "https://github.com/you/MyTool",
-  "apps": ["radiant"],
-  "apiVersion": 1,
-  "files": [
-    { "path": "MyTool.dll", "url": "https://github.com/you/MyTool/releases/download/v1.0/MyTool.dll", "sha256": "..." },
-    { "path": "MyTool.ini", "url": "https://github.com/you/MyTool/releases/download/v1.0/MyTool.ini", "sha256": "...", "config": true }
-  ]
-}
+```
+python tools/submit.py C:\path\to\MyTool --private
 ```
 
-| Field | Meaning |
-| ----- | ------- |
-| `name` | the plugin's identifier: letters, digits, `_` or `-`; equal to the DLL name and to `api.name` in the plugin |
-| `version` | numbers and dots (`1.0`, `1.2.3`); raise it with every new release, and keep it equal to `api.version` in the plugin; files kept in this repo sit in a folder of that name |
-| `changes` | optional: one line (200 characters at most) about what is new in this version, shown in the update question |
-| `apps` | the editors it runs in: `"radiant"`, `"ape"`, `"launcher"` |
-| `apiVersion` | the `RADIANT_PLUGIN_API_VERSION` the plugin was built with |
-| `url` | optional: the plugin's source or project page, shown as "Website" in the Plugins window; leave it out for a closed-source plugin with no public page |
-| `files[].path` | where the file goes inside the plugin's folder; `/` for subfolders; must include `<name>.dll` |
-| `files[].url` | optional: an `https://` download URL (release assets are fine: GitHub's redirect is followed); without it the file is taken from `plugins/<name>/<version>/<path>` in this repo |
-| `files[].sha256` | the SHA-256 of that exact file, lowercase hex |
-| `files[].config` | `true` for settings files: installed only when missing, so an update keeps the user's settings |
+It adds a read-only key to your repo so the list can build it, then writes `private/MyTool.json`. Only the list's maintainer reads your code. Your repo's address is never shown anywhere public. The key can only read that one repo, and you can delete it any time (your repo's Settings > Deploy keys).
 
-## Review rules
+If you have the [GitHub CLI](https://cli.github.com/) logged in, it adds the key for you. Otherwise it shows you the key and where to paste it.
 
-- Open source is welcome but not required. When `url` points to the source, the release files must be built from it.
-- No plugin may download and run other code, or change files outside its own folder without asking the user.
-- Plugins run inside the editor with the user's full rights, so a pull request that cannot be checked is not merged.
+## Release an update
+
+1. Push the new version to your plugin's repo.
+2. Run `python tools/submit.py C:\path\to\MyTool` again. It remembers everything and only asks for the new version number and one line on what changed.
+3. Open a pull request with the updated file.
+
+Use a higher version number every time, and set the same number as `api.version` in your plugin. People who have your plugin then see "Update available".
+
+## Rules
+
+- No downloading and running other code, and no changing files outside your plugin's own folder without asking the user.
+- Your pull request changes only your plugin's own file.
+- Plugins run inside the editor with the user's full rights, so code that cannot be checked is not listed.
+
+## Questions
+
+**Do I need to upload a DLL?** No. The list builds it from your code. Built DLLs without their source are not accepted for new plugins.
+
+**What if the build fails?** The pull request shows the error (with `--test-build` you see it on your PC first). Fix it, push, run `submit.py` again and update your pull request.
+
+**Where do settings go?** An `.ini` named after your plugin is picked up by `submit.py` and installed only when the user has none, so updates keep their settings.
+
+**MTPlugins' own plugins?** They are not in this list: they come with the MTPlugins installer.
+
+Technical details (the file format, how the builds run, plugins listed before source builds): [REFERENCE.md](REFERENCE.md).

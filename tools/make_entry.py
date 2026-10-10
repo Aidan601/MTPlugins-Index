@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Print an index.json entry for a plugin folder with every file's SHA-256 (*.ini marked config).
+"""For the plugins listed with their own files before source builds (new plugins use tools/submit.py).
+Print an index.json entry for a plugin folder with every file's SHA-256 (*.ini marked config).
 Usage: python tools/make_entry.py <plugin folder> <release download base URL>
        python tools/make_entry.py <plugin folder> --version <version>   (copies the files into plugins/<name>/<version>/, removes older versions, no urls)"""
 import hashlib, json, os, shutil, sys

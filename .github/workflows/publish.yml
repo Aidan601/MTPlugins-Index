@@ -1,0 +1,99 @@
+name: Publish plugins built from source
+on:
+  push:
+    branches: [main]
+    paths: ["sources/**", "private/**"]
+  workflow_dispatch:
+concurrency:
+  group: publish
+  cancel-in-progress: false
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      pending: ${{ steps.pending.outputs.names }}
+      private: ${{ steps.pending.outputs.private }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - id: pending
+        run: |
+          echo "names=$(python3 tools/check_index.py --pending)" >> "$GITHUB_OUTPUT"
+          echo "private=$(python3 tools/check_index.py --pending-private)" >> "$GITHUB_OUTPUT"
+
+  # Private source is fetched and built in the private builder repo, which publishes back here.
+  private:
+    needs: list
+    if: needs.list.outputs.private != '[]'
+    runs-on: ubuntu-latest
+    permissions: {}
+    strategy:
+      matrix:
+        name: ${{ fromJSON(needs.list.outputs.private) }}
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.INDEX_TOKEN }}
+          PLUGIN: ${{ matrix.name }}
+        run: gh workflow run build.yml --repo Aidan601/MTPlugins-Builds -f name="$PLUGIN"
+
+  # Runs the plugin's own build (MSBuild or CMake) with a read-only token: its build steps can never write to this repo.
+  build:
+    needs: list
+    if: needs.list.outputs.pending != '[]'
+    runs-on: windows-2025-vs2026
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        name: ${{ fromJSON(needs.list.outputs.pending) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - env:
+          PLUGIN: ${{ matrix.name }}
+        run: python tools/build_source.py "$env:PLUGIN" "$env:RUNNER_TEMP\out" --work "$env:RUNNER_TEMP\work"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.name }}
+          path: ${{ runner.temp }}\out
+          retention-days: 30
+
+  # Only hashes and uploads the built files, never runs them: this is the one job that can write.
+  publish:
+    needs: [list, build]
+    if: always() && needs.list.result == 'success' && needs.build.result != 'cancelled'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: build-*
+          path: ${{ runner.temp }}/builds
+      - name: Releases and index.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TARGET: ${{ github.sha }}
+        run: |
+          shopt -s nullglob
+          python3 tools/publish_source.py "$RUNNER_TEMP"/builds/build-*
+          python3 tools/check_index.py
+      - name: Commit
+        run: |
+          git add -A index.json plugins
+          if git diff --cached --quiet; then echo "index.json unchanged"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Publish built plugins"
+          git pull --rebase origin main
+          git push origin HEAD:main
