@@ -1,0 +1,45 @@
+{
+  "name": "BrushModeler",
+  "displayName": "Brush Modeler",
+  "author": "Owen",
+  "version": "0.3.4",
+  "description": "Convert selected Radiant brushes and patches into XModels, and merge selected BO3 models into a combined XModel.",
+  "changes": "Compact pane, aligned inputs, and cancellable model lookup.",
+  "apps": [
+    "radiant"
+  ],
+  "apiVersion": 1,
+  "source": {
+    "repo": "https://github.com/Owen-C137/MTPlugins-BrushModeler",
+    "commit": "18c4082036af4cb05920181f37737b1e7c050e43",
+    "build": "BrushModeler.vcxproj"
+  },
+  "url": "https://github.com/Owen-C137/MTPlugins-BrushModeler",
+  "files": [
+    {
+      "path": "BrushModeler.dll",
+      "from": "bin/Release/BrushModeler.dll"
+    },
+    {
+      "path": "BrushModeler.ini",
+      "from": "BrushModeler.ini",
+      "config": true
+    },
+    {
+      "path": "merge_xmodels.exe",
+      "from": "merge_xmodels.exe"
+    },
+    {
+      "path": "Tools/exportx.exe",
+      "from": "Tools/exportx.exe"
+    },
+    {
+      "path": "README.md",
+      "from": "README.md"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "from": "THIRD_PARTY_NOTICES.md"
+    }
+  ]
+}
