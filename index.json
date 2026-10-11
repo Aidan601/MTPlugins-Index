@@ -9,7 +9,9 @@
       "description": "Place and create Hammer-style Smart Props in Radiant. Currently includes a modular prop type with 3 more types to come.",
       "changes": "Release fix",
       "url": "https://github.com/twurtleowo/mtplugins-smartprops",
-      "apps": ["radiant"],
+      "apps": [
+        "radiant"
+      ],
       "apiVersion": 1,
       "files": [
         {
@@ -42,7 +44,9 @@
       "version": "1.0.1",
       "description": "Drop selected models, brushes and patches with NVIDIA PhysX so they fall and settle on the map, and drape patches as cloth. Each placement is one undo step.",
       "changes": "Brushes and patches inside prefabs now collide, so dropped objects no longer fall through prefab floors.",
-      "apps": ["radiant"],
+      "apps": [
+        "radiant"
+      ],
       "apiVersion": 1,
       "files": [
         {
@@ -79,7 +83,9 @@
       "description": "Adds native ^0-^7 colors and automatic diagnostic highlighting to the Black Ops III Mod Tools Launcher output.",
       "changes": "Initial release.",
       "url": "https://github.com/gimmcity/MTPlugins-ColorLog",
-      "apps": ["launcher"],
+      "apps": [
+        "launcher"
+      ],
       "apiVersion": 1,
       "files": [
         {
@@ -96,32 +102,32 @@
       ]
     },
     {
-        "name": "VisionEditor",
-        "displayName": "Visual Editor",
-        "author": "SaintVertigo",
-        "version": "1.0.1",
-        "description": "Edit BO3 Bloom and Color LVI grades, author and export LUTs, and edit Vision Sets in Radiant. Real camera LUT preview requires the upcoming MTPlugins host update.",
-        "changes": "v1.0.1 fixes and UI improvements. Keeps the VisionEditor install ID for in-place upgrades; live LUT camera preview requires the upcoming host update.",
-        "apps": [
-          "radiant"
-        ],
-        "apiVersion": 1,
-        "files": [
-          {
-            "path": "README.md",
-            "sha256": "1e20d50a742430d25a1bf22fae4c9eb95ed302578e6b92004e6f1b932dd91524"
-          },
-          {
-            "path": "VisionEditor.dll",
-            "sha256": "b7df87a2817640f63b5293cb8bff7e8dbfdee51c1a51d1d54263c5b2977a5221"
-          },
-          {
-            "path": "VisionEditor.ini",
-            "sha256": "f48166258386dcafa40beae4eac019650e79d3079396bbebf673da0eb9630cfb",
-            "config": true
-          }
-        ]
-      },
+      "name": "VisionEditor",
+      "displayName": "Visual Editor",
+      "author": "SaintVertigo",
+      "version": "1.0.1",
+      "description": "Edit BO3 Bloom and Color LVI grades, author and export LUTs, and edit Vision Sets in Radiant. Real camera LUT preview requires the upcoming MTPlugins host update.",
+      "changes": "v1.0.1 fixes and UI improvements. Keeps the VisionEditor install ID for in-place upgrades; live LUT camera preview requires the upcoming host update.",
+      "apps": [
+        "radiant"
+      ],
+      "apiVersion": 1,
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "1e20d50a742430d25a1bf22fae4c9eb95ed302578e6b92004e6f1b932dd91524"
+        },
+        {
+          "path": "VisionEditor.dll",
+          "sha256": "b7df87a2817640f63b5293cb8bff7e8dbfdee51c1a51d1d54263c5b2977a5221"
+        },
+        {
+          "path": "VisionEditor.ini",
+          "sha256": "f48166258386dcafa40beae4eac019650e79d3079396bbebf673da0eb9630cfb",
+          "config": true
+        }
+      ]
+    },
     {
       "name": "SplineProps",
       "displayName": "Spline Props",
@@ -137,6 +143,56 @@
         {
           "path": "SplineProps.dll",
           "sha256": "261a78245fcb4f5db3ab08946a22ab223e4f36011598492c3c0d0bb0e268fa94"
+        }
+      ]
+    },
+    {
+      "name": "BrushModeler",
+      "displayName": "Brush Modeler",
+      "author": "Owen",
+      "version": "0.3.5",
+      "description": "Convert selected Radiant brushes and patches into XModels, and merge selected BO3 models into a combined XModel.",
+      "changes": "Block map files as GDT targets; update GDTs with backup and atomic replacement.",
+      "apps": [
+        "radiant"
+      ],
+      "apiVersion": 1,
+      "url": "https://github.com/Owen-C137/MTPlugins-BrushModeler",
+      "source": {
+        "repo": "https://github.com/Owen-C137/MTPlugins-BrushModeler",
+        "commit": "3ba8965f3a9e88c4d8f455b6b0381fa6940ad94b"
+      },
+      "files": [
+        {
+          "path": "BrushModeler.dll",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/BrushModeler.dll",
+          "sha256": "97adedf187a2c89f951b4b924efa2f4c93de2e639843ac1f7abd8111e0859098"
+        },
+        {
+          "path": "BrushModeler.ini",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/BrushModeler.ini",
+          "sha256": "291701e80cda6a095c178b30c9b8e01f4e136bca6c48073a6ed7c77a806258f7",
+          "config": true
+        },
+        {
+          "path": "merge_xmodels.exe",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/merge_xmodels.exe",
+          "sha256": "37669128af72bed0308ffe6d9aae6d00d93e63e75d81133f520f57956715a670"
+        },
+        {
+          "path": "Tools/exportx.exe",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/exportx.exe",
+          "sha256": "e8588ded31879cc55ad089e652eaae77b2bb2dd9dc23c6e22f660155688b79b6"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/README.md",
+          "sha256": "6cafc471ed57af90a91fc20e70b4b0fca8aa79b904aba820b9f360ccd3092652"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/THIRD_PARTY_NOTICES.md",
+          "sha256": "7a12a1be37cb506e808c368f20d57fa65ebc7f4708493a0ed405223f6dd37c1d"
         }
       ]
     }
