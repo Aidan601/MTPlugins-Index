@@ -79,24 +79,28 @@
       "name": "ColorLog",
       "displayName": "Color Log",
       "author": "GimmCity",
-      "version": "1.0.0",
-      "description": "Adds native ^0-^7 colors and automatic diagnostic highlighting to the Black Ops III Mod Tools Launcher output.",
-      "changes": "Initial release.",
-      "url": "https://github.com/gimmcity/MTPlugins-ColorLog",
+      "version": "1.0.1",
+      "description": "Adds native inline colors plus fixed warning/error counters and diagnostic navigation to the BO3 Mod Tools Launcher output.",
+      "changes": "Adds persistent warning/error counters, cyclic smooth navigation with full-width row flashes, glowing PNG status icons, and prevents later linker output from inheriting warning/error colors.",
       "apps": [
         "launcher"
       ],
       "apiVersion": 1,
+      "url": "https://github.com/gimmcity/MTPlugins-ColorLog",
+      "source": {
+        "repo": "https://github.com/gimmcity/MTPlugins-ColorLog",
+        "commit": "0446cfc6ea6cce47e76149aeb3e07ddf67825bba"
+      },
       "files": [
         {
           "path": "ColorLog.dll",
-          "url": "https://github.com/gimmcity/MTPlugins-ColorLog/releases/download/v1.0.0/ColorLog.dll",
-          "sha256": "1603207c4ca04d16945fb9f482bd99e8ed86e9f4670a26d8948bb8a207cbad1c"
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/ColorLog-1.0.1/ColorLog.dll",
+          "sha256": "6cec691017ccb475e0f7e01ec896197c4d9139a99654e482b59a7f351b4cf4ae"
         },
         {
           "path": "ColorLog.ini",
-          "url": "https://github.com/gimmcity/MTPlugins-ColorLog/releases/download/v1.0.0/ColorLog.ini",
-          "sha256": "7ad645521c27789b117b57e862e2d6c797207487d1d78de36916aa0201e3e127",
+          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/ColorLog-1.0.1/ColorLog.ini",
+          "sha256": "a903b3fbdc1106c617de40e8cb05a4948aa29ffb372abf12854e3a384c54bbaa",
           "config": true
         }
       ]
