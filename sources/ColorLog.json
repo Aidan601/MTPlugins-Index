@@ -1,0 +1,29 @@
+{
+  "name": "ColorLog",
+  "displayName": "Color Log",
+  "author": "GimmCity",
+  "version": "1.0.1",
+  "description": "Adds native inline colors plus fixed warning/error counters and diagnostic navigation to the BO3 Mod Tools Launcher output.",
+  "changes": "Adds persistent warning/error counters, cyclic smooth navigation with full-width row flashes, glowing PNG status icons, and prevents later linker output from inheriting warning/error colors.",
+  "apps": [
+    "launcher"
+  ],
+  "apiVersion": 1,
+  "source": {
+    "repo": "https://github.com/gimmcity/MTPlugins-ColorLog",
+    "commit": "0446cfc6ea6cce47e76149aeb3e07ddf67825bba",
+    "build": "ColorLog.vcxproj"
+  },
+  "url": "https://github.com/gimmcity/MTPlugins-ColorLog",
+  "files": [
+    {
+      "path": "ColorLog.dll",
+      "from": "build/Release/ColorLog.dll"
+    },
+    {
+      "path": "ColorLog.ini",
+      "from": "ColorLog.ini",
+      "config": true
+    }
+  ]
+}
