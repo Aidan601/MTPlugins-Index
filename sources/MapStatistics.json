@@ -1,0 +1,29 @@
+{
+  "name": "MapStatistics",
+  "displayName": "Map Statistics",
+  "author": "GimmCity",
+  "version": "1.1.3",
+  "description": "Adds a configurable on-demand map statistics overlay to the Black Ops III Radiant 3D camera viewport.",
+  "changes": "Initial public release.",
+  "apps": [
+    "radiant"
+  ],
+  "apiVersion": 1,
+  "source": {
+    "repo": "https://github.com/gimmcity/MTPlugins-MapStatistics",
+    "commit": "39852526ef582daa8dc38fae382dcd5eb5252f23",
+    "build": "MapStatistics.sln"
+  },
+  "files": [
+    {
+      "path": "MapStatistics.dll",
+      "from": "build/Release/MapStatistics.dll"
+    },
+    {
+      "path": "MapStatistics.ini",
+      "from": "MapStatistics.ini",
+      "config": true
+    }
+  ],
+  "url": "https://github.com/gimmcity/MTPlugins-MapStatistics"
+}
