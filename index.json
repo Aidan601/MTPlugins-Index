@@ -105,9 +105,9 @@
       "name": "VisionEditor",
       "displayName": "Visual Editor",
       "author": "SaintVertigo",
-      "version": "1.0.1",
-      "description": "Edit BO3 Bloom and Color LVI grades, author and export LUTs, and edit Vision Sets in Radiant. Real camera LUT preview requires the upcoming MTPlugins host update.",
-      "changes": "v1.0.1 fixes and UI improvements. Keeps the VisionEditor install ID for in-place upgrades; live LUT camera preview requires the upcoming host update.",
+      "version": "1.0.2",
+      "description": "Edit BO3 Bloom and Color LVI grades, author and export LUTs, and edit Vision Sets in Radiant. Live camera LUT preview requires MTPlugins 1.1.0+.",
+      "changes": "Rebuilt for the MTPlugins 1.1.0 LUT preview ABI; older hosts safely skip camera LUT preview.",
       "apps": [
         "radiant"
       ],
@@ -115,11 +115,11 @@
       "files": [
         {
           "path": "README.md",
-          "sha256": "1e20d50a742430d25a1bf22fae4c9eb95ed302578e6b92004e6f1b932dd91524"
+          "sha256": "a7e89fb86bbbc6fcdbbf233272c7f3bce82812b5c56a8e8628208186bec8d507"
         },
         {
           "path": "VisionEditor.dll",
-          "sha256": "b7df87a2817640f63b5293cb8bff7e8dbfdee51c1a51d1d54263c5b2977a5221"
+          "sha256": "fb94272702b1da72f06f34cbefa73d4cfb829174eae992166b20f1f1eb01ef7b"
         },
         {
           "path": "VisionEditor.ini",
