@@ -59,7 +59,6 @@ def check(fn_name, e):
     for k in ("configuration", "platform"):
         if k in s and not re.match(r"^[A-Za-z0-9_ ]{1,32}$", str(s[k])):
             errors.append(f"{where}: source.{k} has odd characters")
-    assets = set()
     for f in e.get("files", []):
         p = f.get("path", "")
         if any(k in f for k in GENERATED):
@@ -69,10 +68,7 @@ def check(fn_name, e):
             errors.append(f"{where}: {p}: 'from' must be the file's path in the repo after the build, with / separators")
         a = os.path.basename(p)
         if not ASSET.match(a):
-            errors.append(f"{where}: {p}: file names may only use letters, digits, '_', '-' and '.' (they become release asset names)")
-        if a.lower() in assets:
-            errors.append(f"{where}: two files are named {a}: release asset names are flat, rename one")
-        assets.add(a.lower())
+            errors.append(f"{where}: {p}: file names may only use letters, digits, '_', '-' and '.'")
     return errors
 
 def pending(index, sources):

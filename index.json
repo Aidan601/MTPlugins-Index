@@ -94,12 +94,10 @@
       "files": [
         {
           "path": "ColorLog.dll",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/ColorLog-1.0.1/ColorLog.dll",
           "sha256": "6cec691017ccb475e0f7e01ec896197c4d9139a99654e482b59a7f351b4cf4ae"
         },
         {
           "path": "ColorLog.ini",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/ColorLog-1.0.1/ColorLog.ini",
           "sha256": "a903b3fbdc1106c617de40e8cb05a4948aa29ffb372abf12854e3a384c54bbaa",
           "config": true
         }
@@ -169,33 +167,27 @@
       "files": [
         {
           "path": "BrushModeler.dll",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/BrushModeler.dll",
           "sha256": "97adedf187a2c89f951b4b924efa2f4c93de2e639843ac1f7abd8111e0859098"
         },
         {
           "path": "BrushModeler.ini",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/BrushModeler.ini",
           "sha256": "291701e80cda6a095c178b30c9b8e01f4e136bca6c48073a6ed7c77a806258f7",
           "config": true
         },
         {
           "path": "merge_xmodels.exe",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/merge_xmodels.exe",
           "sha256": "37669128af72bed0308ffe6d9aae6d00d93e63e75d81133f520f57956715a670"
         },
         {
           "path": "Tools/exportx.exe",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/exportx.exe",
           "sha256": "e8588ded31879cc55ad089e652eaae77b2bb2dd9dc23c6e22f660155688b79b6"
         },
         {
           "path": "README.md",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/README.md",
           "sha256": "6cafc471ed57af90a91fc20e70b4b0fca8aa79b904aba820b9f360ccd3092652"
         },
         {
           "path": "THIRD_PARTY_NOTICES.md",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/BrushModeler-0.3.5/THIRD_PARTY_NOTICES.md",
           "sha256": "7a12a1be37cb506e808c368f20d57fa65ebc7f4708493a0ed405223f6dd37c1d"
         }
       ]
@@ -219,12 +211,10 @@
       "files": [
         {
           "path": "MapStatistics.dll",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/MapStatistics-1.1.3/MapStatistics.dll",
           "sha256": "4b233a9c337276ec2776e439af02babfc6326b0fbcc7e3ad32b4a18939974919"
         },
         {
           "path": "MapStatistics.ini",
-          "url": "https://github.com/Aidan601/MTPlugins-Index/releases/download/MapStatistics-1.1.3/MapStatistics.ini",
           "sha256": "ce8dd363ce259c0f4cd70946c44f94e1254a62370af52ffb2f73a5a19b08d2c5",
           "config": true
         }

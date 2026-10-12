@@ -1,22 +1,17 @@
 #!/usr/bin/env python3
-"""Publish plugins built by build_source.py: one GitHub release <Name>-<version> per build, then index.json gets
-the entry from sources/<Name>.json with each file's release url and sha256. Also copies text-only edits of the
+"""Publish plugins built by build_source.py: the built files go to plugins/<Name>/<version>/ in this repo (older
+versions removed), then index.json gets the entry from sources/<Name>.json with each file's sha256. Also copies text-only edits of the
 sources files (description, changes, ...) into already published entries. Never runs any of the plugin's code.
 Usage: python tools/publish_source.py [--repo <owner/repo>] [--dry-run] [<build folder> ...]
        python tools/publish_source.py [--repo <owner/repo>] [--dry-run] --private <Name> <build folder>
-       (private/<Name>.json, run by the private builder: its repo stays out of index.json and the release)"""
-import hashlib, json, os, shutil, subprocess, sys
+       (private/<Name>.json, run by the private builder: its repo stays out of index.json)
+       --repo is accepted for the private builder and unused."""
+import hashlib, json, os, shutil, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sources
 
 INDEX = os.path.join(sources.ROOT, "index.json")
 BUILD_ONLY = ("source", "files")
-
-def gh(dry, *cmd):
-    print(">", "gh", " ".join(cmd), flush=True)
-    if dry:
-        return subprocess.CompletedProcess(cmd, 1)
-    return subprocess.run(["gh", *cmd], check=False)
 
 def entry_from(src, files=None, old=None, private=False):
     """The index.json entry for a sources file: its fields, the source pin, and the files (kept from old when not rebuilt)."""
@@ -30,42 +25,39 @@ def entry_from(src, files=None, old=None, private=False):
     e["files"] = files if files is not None else old["files"]
     return e
 
-def publish(build_dir, src, repo, dry, private=False):
+def publish(build_dir, src, dry, private=False):
     info = json.load(open(os.path.join(build_dir, "build.json"), encoding="utf-8"))
     n, s = src["name"], src["source"]
     if (info["name"], info["version"], info["commit"]) != (n, src["version"], s["commit"]):
         sys.exit(f"{build_dir}: built {info['name']} {info['version']} at {info['commit']}, sources/{n}.json now says {src['version']} at {s['commit']}")
-    tag = sources.tag(src)
-    files, paths = [], []
+    files, copies = [], []
     for f, b in zip(src["files"], info["files"]):
         local = os.path.join(build_dir, "files", *f["path"].split("/"))
         if b["path"] != f["path"] or hashlib.sha256(open(local, "rb").read()).hexdigest() != b["sha256"]:
             sys.exit(f"{build_dir}: {f['path']} does not match build.json")
-        out = {"path": f["path"], "url": f"https://github.com/{repo}/releases/download/{tag}/{os.path.basename(f['path'])}", "sha256": b["sha256"]}
+        out = {"path": f["path"], "sha256": b["sha256"]}
         if f.get("config"):
             out["config"] = True
         files.append(out)
-        paths.append(local)
-    # a release of a pending version is never listed yet: one left over from a failed run is replaced
-    if gh(dry, "release", "view", tag, "--repo", repo).returncode == 0:
-        gh(dry, "release", "delete", tag, "--repo", repo, "--cleanup-tag", "--yes")
-    run = f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/{repo}/actions/runs/{os.environ.get('GITHUB_RUN_ID', 'local')}"
-    if private:
-        notes = f"{src['displayName']} {src['version']} by {src['author']}, built by the plugin list from privately reviewed source (commit {s['commit']})"
-    else:
-        notes = f"{src['displayName']} {src['version']} by {src['author']}, built by the plugin list from {s['repo']}/tree/{s['commit']}\n\nBuild: {run}"
-    r = gh(dry, "release", "create", tag, *paths, "--repo", repo, "--title", f"{src['displayName']} {src['version']}",
-           "--notes", notes, "--target", os.environ.get("RELEASE_TARGET", "main"))
-    if r.returncode != 0 and not dry:
-        sys.exit(f"could not create the release {tag}")
+        copies.append((local, f["path"]))
+    # only the listed version is kept in plugins/<Name>/
+    folder = os.path.join(sources.ROOT, "plugins", n)
+    print(f"> plugins/{n}/{src['version']}/: " + ", ".join(p for _, p in copies), flush=True)
+    if not dry:
+        if os.path.isdir(folder):
+            shutil.rmtree(folder)
+        for local, p in copies:
+            dest = os.path.join(folder, src["version"], *p.split("/"))
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            shutil.copyfile(local, dest)
     return files
 
 def main():
-    args, dry, repo = sys.argv[1:], False, os.environ.get("GITHUB_REPOSITORY", "Aidan601/MTPlugins-Index")
+    args, dry = sys.argv[1:], False
     if "--dry-run" in args:
         args.remove("--dry-run"); dry = True
     if "--repo" in args:
-        i = args.index("--repo"); repo = args[i + 1]; del args[i:i + 2]
+        i = args.index("--repo"); del args[i:i + 2]
     private = None
     if "--private" in args:
         i = args.index("--private"); private = args[i + 1]; del args[i:i + 2]
@@ -91,16 +83,12 @@ def main():
             sys.exit(f"{d}: a private build is published with --private <Name>, a public one without")
         if n in pos and sources.version_key(privs.get(n, srcs.get(n))["version"]) <= sources.version_key(plugins[pos[n]].get("version", "0")):
             sys.exit(f"{n}: the version must be higher than the listed {plugins[pos[n]].get('version')}")
-        built[n] = publish(d, privs.get(n) or srcs[n], repo, dry, private=n in privs)
+        built[n] = publish(d, privs.get(n) or srcs[n], dry, private=n in privs)
     changed = []
     for n, s in list(srcs.items()) + list(privs.items()):
         priv = sources.is_private(s)
         if n in built:
             e = entry_from(s, files=built[n], private=priv)
-            # files kept in this repo for an older version are no longer listed
-            old_dir = os.path.join(sources.ROOT, "plugins", n)
-            if os.path.isdir(old_dir):
-                shutil.rmtree(old_dir); print(f"removed plugins/{n}")
         elif n in pend:
             print(f"{n}: waiting for its build, index.json keeps the listed version")
             continue

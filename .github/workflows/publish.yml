@@ -66,7 +66,7 @@ jobs:
           path: ${{ runner.temp }}\out
           retention-days: 30
 
-  # Only hashes and uploads the built files, never runs them: this is the one job that can write.
+  # Only hashes and commits the built files, never runs them: this is the one job that can write.
   publish:
     needs: [list, build]
     if: always() && needs.list.result == 'success' && needs.build.result != 'cancelled'
@@ -80,10 +80,7 @@ jobs:
         with:
           pattern: build-*
           path: ${{ runner.temp }}/builds
-      - name: Releases and index.json
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RELEASE_TARGET: ${{ github.sha }}
+      - name: Files and index.json
         run: |
           shopt -s nullglob
           python3 tools/publish_source.py "$RUNNER_TEMP"/builds/build-*

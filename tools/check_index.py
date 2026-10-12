@@ -135,7 +135,7 @@ def main():
         if n in pend and e and VERSION.match(str(v)) and VERSION.match(e.get("version", "")) and version_key(v) <= version_key(e["version"]):
             errors.append(f"{where}: a new commit needs a higher 'version' than the listed {e['version']}")
         if os.path.isdir(os.path.join("plugins", n)) and not (e and any(not f.get("url") for f in e.get("files", []))):
-            errors.append(f"plugins/{n}: built from source, its files are release assets, delete the folder")
+            errors.append(f"plugins/{n}: built from source, only the list's build writes this folder, delete it")
     if os.path.isdir("plugins"):
         listed = {e.get("name", ""): e for e in idx["plugins"]}
         for d in sorted(os.listdir("plugins")):
