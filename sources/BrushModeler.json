@@ -1,45 +1,41 @@
 {
-  "name": "BrushModeler",
-  "displayName": "Brush Modeler",
-  "author": "Owen",
-  "version": "0.3.5",
-  "description": "Convert selected Radiant brushes and patches into XModels, and merge selected BO3 models into a combined XModel.",
-  "changes": "Block map files as GDT targets; update GDTs with backup and atomic replacement.",
-  "apps": [
-    "radiant"
-  ],
-  "apiVersion": 1,
-  "source": {
-    "repo": "https://github.com/Owen-C137/MTPlugins-BrushModeler",
-    "commit": "3ba8965f3a9e88c4d8f455b6b0381fa6940ad94b",
-    "build": "BrushModeler.vcxproj"
-  },
-  "url": "https://github.com/Owen-C137/MTPlugins-BrushModeler",
-  "files": [
-    {
-      "path": "BrushModeler.dll",
-      "from": "bin/Release/BrushModeler.dll"
-    },
-    {
-      "path": "BrushModeler.ini",
-      "from": "BrushModeler.ini",
-      "config": true
-    },
-    {
-      "path": "merge_xmodels.exe",
-      "from": "merge_xmodels.exe"
-    },
-    {
-      "path": "Tools/exportx.exe",
-      "from": "Tools/exportx.exe"
-    },
-    {
-      "path": "README.md",
-      "from": "README.md"
-    },
-    {
-      "path": "THIRD_PARTY_NOTICES.md",
-      "from": "THIRD_PARTY_NOTICES.md"
-    }
-  ]
+    "name":  "BrushModeler",
+    "displayName":  "Brush Modeler",
+    "author":  "Owen",
+    "version":  "0.4.0",
+    "description":  "Convert selected Radiant brushes and patches into XModels, and merge selected BO3 models into a combined XModel.",
+    "changes":  "Merging runs inside the plugin (no helper exe); collision, pivot and skip-tool-face options; Cancel for builds.",
+    "apps":  [
+                 "radiant"
+             ],
+    "apiVersion":  1,
+    "source":  {
+                   "repo":  "https://github.com/Owen-C137/MTPlugins-BrushModeler",
+                   "commit":  "97fa9851c6d415694579e7d7db1829cfefbb2d89",
+                   "build":  "BrushModeler.vcxproj"
+               },
+    "url":  "https://github.com/Owen-C137/MTPlugins-BrushModeler",
+    "files":  [
+                  {
+                      "path":  "BrushModeler.dll",
+                      "from":  "bin/Release/BrushModeler.dll"
+                  },
+                  {
+                      "path":  "BrushModeler.ini",
+                      "from":  "BrushModeler.ini",
+                      "config":  true
+                  },
+                  {
+                      "path":  "Tools/exportx.exe",
+                      "from":  "Tools/exportx.exe"
+                  },
+                  {
+                      "path":  "README.md",
+                      "from":  "README.md"
+                  },
+                  {
+                      "path":  "THIRD_PARTY_NOTICES.md",
+                      "from":  "THIRD_PARTY_NOTICES.md"
+                  }
+              ]
 }
