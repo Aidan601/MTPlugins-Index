@@ -1,0 +1,28 @@
+{
+    "name":  "ProjectBrowser",
+    "displayName":  "Project Browser",
+    "author":  "Owen",
+    "version":  "1.0.0",
+    "description":  "A Project dock pane for Radiant that browses the active map\u0027s usermaps folder, plus a tabbed Code Editor for GSC, CSC, zone and other text files.",
+    "changes":  "Initial release.",
+    "apps":  [
+                 "radiant"
+             ],
+    "apiVersion":  1,
+    "source":  {
+                   "repo":  "https://github.com/Owen-C137/ProjectBrowser",
+                   "commit":  "89fc5521bb43b899aca834dbbbe0ffc7d8502034",
+                   "build":  "ProjectBrowser.vcxproj"
+               },
+    "files":  [
+                  {
+                      "path":  "ProjectBrowser.dll",
+                      "from":  "bin/Release/ProjectBrowser.dll"
+                  },
+                  {
+                      "path":  "README.md",
+                      "from":  "README.md"
+                  }
+              ],
+    "url":  "https://github.com/Owen-C137/ProjectBrowser"
+}
