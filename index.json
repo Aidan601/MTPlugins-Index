@@ -220,9 +220,9 @@
       "name": "SceneHierarchy",
       "displayName": "Scene Hierarchy",
       "author": "Owen",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "description": "A Hierarchy dock pane for Radiant: the map as a searchable tree of entities and brushes in categories, with selection sync and drag-and-drop grouping.",
-      "changes": "Initial release.",
+      "changes": "Uses Radiance's own icons for rows and toolbar buttons.",
       "apps": [
         "radiant"
       ],
@@ -230,16 +230,16 @@
       "url": "https://github.com/Owen-C137/SceneHierarchy",
       "source": {
         "repo": "https://github.com/Owen-C137/SceneHierarchy",
-        "commit": "7e43916be3919b374a97fb81cb31121ee9410515"
+        "commit": "8a31536fc1da36d1dced9217b2241037d5b24348"
       },
       "files": [
         {
           "path": "SceneHierarchy.dll",
-          "sha256": "e7ebee365520be5bc76db1331623823dce4570486c5143149d00afd623cd7f0a"
+          "sha256": "549d1dd29f61139020aef1867c024d91947ecf998a5da2aa8131fbed8694c2af"
         },
         {
           "path": "README.md",
-          "sha256": "e77f76c0f224c6841d80a0c8756ebdfba6647b5ed06dbabe4a7a4426a6f02e20"
+          "sha256": "a843fe53f7b32f6e8df1e59c243707f61adeff083a7755187fa1a96e96427b71"
         }
       ]
     },
